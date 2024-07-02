@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using MinhaPrimeiraAPI.DataAccess;
+using MinhaPrimeiraAPI.Domain;
 
 namespace MinhaPrimeiraAPI.Controllers
 {
@@ -12,22 +14,18 @@ namespace MinhaPrimeiraAPI.Controllers
         };
 
         private readonly ILogger<QuestionController> _logger;
+        private readonly MinhaAppContext _db;
 
-        public QuestionController(ILogger<QuestionController> logger)
+        public QuestionController(ILogger<QuestionController> logger, MinhaAppContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet]
+        public IEnumerable<Player> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return _db.Players.ToList();
         }
     }
 }
