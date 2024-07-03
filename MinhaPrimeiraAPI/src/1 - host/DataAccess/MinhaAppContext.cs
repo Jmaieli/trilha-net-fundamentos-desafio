@@ -6,6 +6,10 @@ namespace MinhaPrimeiraAPI.DataAccess
     public class MinhaAppContext : DbContext
     {
         public DbSet<Player> Players { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<PlayerAnswer> PlayerAnswers { get; set; }
+        public DbSet<Question> Questions { get; set; }
 
         public MinhaAppContext(DbContextOptions<MinhaAppContext> options) : base(options)
         {
@@ -14,7 +18,7 @@ namespace MinhaPrimeiraAPI.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           MapPlayer(modelBuilder);
+            MapPlayer(modelBuilder);
         }
 
         void MapPlayer(ModelBuilder modelBuilder)
